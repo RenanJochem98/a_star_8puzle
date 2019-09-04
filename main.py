@@ -6,15 +6,14 @@ print(" "*7+"INICIANDO BUSCA")
 print("#"*30)
 print("\n")
 
-node = Node()
 goalMatrix = Utils.defineGoalMatrix()
 scrambledMatrix = Utils.defineScrambledMatrix()
 
 print("Matriz objetivo:")
-Utils.showIntMatrix(goalMatrix)
+Utils.showNodeMatrix(goalMatrix)
 print("\n")
 print("Matriz Inicial:")
-Utils.showIntMatrix(scrambledMatrix)
+Utils.showNodeMatrix(scrambledMatrix)
 
 
 print("\n")
