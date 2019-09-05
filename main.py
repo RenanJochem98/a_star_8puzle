@@ -12,12 +12,12 @@ utils = Utils()
 goalMatrix = utils.defineGoalMatrix()
 scrambledMatrix = utils.defineScrambledMatrix()
 searchEngine = SearchEngine(scrambledMatrix, goalMatrix)
-
+#
 print("Matriz objetivo:")
 utils.showNodeMatrix(goalMatrix)
 print("\n")
-utils.showNodeMatrixDetailed(goalMatrix)
-print("\n")
+# utils.showNodeMatrixDetailed(goalMatrix)
+# print("\n")
 
 print("Matriz Inicial:")
 utils.showNodeMatrix(scrambledMatrix)
@@ -27,6 +27,8 @@ print("\n")
 
 print("Valores Calculados:")
 searchEngine.calculateHeuristic()
+utils.showNodeMatrixDetailed(searchEngine.getScrambledMatrix())
+print("\n")
 
 print("\n")
 print("#"*30)
