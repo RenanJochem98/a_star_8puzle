@@ -1,10 +1,12 @@
 import random
 from Node import Node
+from MatrixDisplay import MatrixDisplay
 class Matrix(object):
 
     def __init__(self, type):
         self.upperLevel = 3 # precisa ficar antes de defineMatrix() para caso de matriz embaralhada
         self.emptyPosition = {'Horiz': None, 'Vert': None}
+        self.display = MatrixDisplay()
         self.defineMatrix(type)
 
     def defineMatrix(self, type):
@@ -55,28 +57,7 @@ class Matrix(object):
         return scrambledMatrix
 
     def showNodeMatrix(self):
-        print ("Visao resumida:")
-        for level in self.matrix:
-            count = 1
-            for node in level:
-                endLine = " "
-                if count % self.upperLevel == 0:
-                    endLine = "\n"
-                print(node.getValue(), end=endLine)
-                count+=1
+        self.display.showNodeMatrix(self.matrix, self.upperLevel)
 
     def showNodeMatrixDetailed(self):
-        print ("Visao Detalhada:")
-        print ("N = Nodo")
-        print ("L = Nivel (Level)")
-        print ("H = Heuristica")
-        print ("")
-        print ("N L H   N L H   N L H")
-        for level in self.matrix:
-            count = 1
-            for node in level:
-                endLine = "   "
-                if count % self.upperLevel == 0:
-                    endLine = "\n"
-                print(node.getValue(),node.getLevel(),node.getH(), end=endLine)
-                count+=1
+        self.display.showNodeMatrixDetailed(self.matrix, self.upperLevel)
