@@ -4,6 +4,7 @@ class Matrix(object):
 
     def __init__(self, type):
         self.upperLevel = 3 # precisa ficar antes de defineMatrix() para caso de matriz embaralhada
+        self.emptyPosition = {'Horiz': None, 'Vert': None}
         self.defineMatrix(type)
 
     def defineMatrix(self, type):
@@ -15,11 +16,24 @@ class Matrix(object):
     def getMatrix(self):
         return self.matrix
 
+    def getEmptyPosition(self):
+        return self.emptyPosition
+
+    def setEmptyPosition(self, horiz, vert):
+        if horiz is not None:
+            self.emptyPosition['Horiz'] = horiz
+        if vert is not None:
+            self.emptyPosition['Vert'] = vert
+
     def mountGoalMatrix(self):
         goalMatrix = []
         goalMatrix.append([Node(1,0),Node(2,0),Node(3,0)])
         goalMatrix.append([Node(4,1),Node(5,1),Node(6,1)])
         goalMatrix.append([Node(7,2),Node(8,2),Node(0,2)])
+
+        self.emptyPosition['Horiz'] = 2
+        self.emptyPosition['Vert'] = 2
+
         return goalMatrix
 
     def mountScrambledMatrix(self):
@@ -30,6 +44,9 @@ class Matrix(object):
         randomValues = random.sample(range(0,9), 9)
         for value in randomValues:
             arr.append(Node(value,level))
+            if value == 0:
+                self.emptyPosition['Horiz'] = (count-1) % self.upperLevel
+                self.emptyPosition['Vert'] = level
             if count % self.upperLevel == 0:
                 scrambledMatrix.append(arr)
                 arr = []
