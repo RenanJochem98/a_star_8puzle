@@ -1,5 +1,5 @@
 from Node import Node
-from Utils import Utils
+from Matrix import Matrix
 from SearchEngine import SearchEngine
 
 print("")
@@ -8,26 +8,23 @@ print(" "*7+"INICIANDO BUSCA")
 print("#"*30)
 print("\n")
 
-utils = Utils()
-goalMatrix = utils.defineGoalMatrix()
-scrambledMatrix = utils.defineScrambledMatrix()
+goalMatrix = Matrix('goal')
+scrambledMatrix = Matrix('scrambled')
 searchEngine = SearchEngine(scrambledMatrix, goalMatrix)
-#
+
 print("Matriz objetivo:")
-utils.showNodeMatrix(goalMatrix)
+goalMatrix.showNodeMatrix()
 print("\n")
-# utils.showNodeMatrixDetailed(goalMatrix)
-# print("\n")
 
 print("Matriz Inicial:")
-utils.showNodeMatrix(scrambledMatrix)
+scrambledMatrix.showNodeMatrix()
 print("\n")
-utils.showNodeMatrixDetailed(scrambledMatrix)
+scrambledMatrix.showNodeMatrixDetailed()
 print("\n")
 
 print("Valores Calculados:")
 searchEngine.calculateHeuristic()
-utils.showNodeMatrixDetailed(searchEngine.getScrambledMatrix())
+searchEngine.getScrambledMatrix().showNodeMatrixDetailed()
 print("\n")
 
 print("\n")
