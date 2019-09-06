@@ -57,7 +57,7 @@ class Matrix(object):
         return scrambledMatrix
 
     def showNodeMatrix(self):
-        self.display.showNodeMatrix(self.matrix, self.upperLevel)
+        self.display.showMatrix(self.matrix, self.upperLevel)
 
     def showNodeMatrixDetailed(self):
-        self.display.showNodeMatrixDetailed(self.matrix, self.upperLevel)
+        self.display.showMatrixDetailed(self.matrix, self.upperLevel)

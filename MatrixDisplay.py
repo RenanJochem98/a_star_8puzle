@@ -1,6 +1,6 @@
 class MatrixDisplay(object):
 
-    def showNodeMatrix(matrix, breakLineMatrix):
+    def showMatrix(self, matrix, breakLineMatrix):
         print ("Visao resumida:")
         for level in matrix:
             count = 1
@@ -11,7 +11,7 @@ class MatrixDisplay(object):
                 print(node.getValue(), end=endLine)
                 count+=1
 
-    def showNodeMatrixDetailed(matrix, breakLineMatrix):
+    def showMatrixDetailed(self, matrix, breakLineMatrix):
         print ("Visao Detalhada:")
         print ("N = Nodo")
         print ("L = Nivel (Level)")
