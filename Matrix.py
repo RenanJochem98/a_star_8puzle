@@ -28,11 +28,19 @@ class Matrix(object):
         if vert is not None:
             self.emptyPosition['Vert'] = vert
 
+    def move(self, positonHoriz, positionVert):
+        #verifica se movimento eh valido
+        node = self.matrix[positonHoriz][positionVert]
+        val = node.getValue()
+        lev = node.getValue()
+        self.matrix[self.emptyPosition['Horiz']][self.emptyPosition['Vert']] = node
+        self.matrix[positonHoriz][positionVert] = Node(self.emptyValue, lev)
+
     def mountGoalMatrix(self):
         goalMatrix = []
         goalMatrix.append([Node(1,0),Node(2,0),Node(3,0)])
         goalMatrix.append([Node(4,1),Node(5,1),Node(6,1)])
-        goalMatrix.append([Node(7,2),Node(8,2),Node(0,2)])
+        goalMatrix.append([Node(7,2),Node(8,2),Node(self.emptyValue,2)])
 
         self.emptyPosition['Horiz'] = 2
         self.emptyPosition['Vert'] = 2
