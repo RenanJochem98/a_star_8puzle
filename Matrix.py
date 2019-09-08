@@ -6,6 +6,7 @@ class Matrix(object):
     def __init__(self, type):
         self.upperLevel = 3 # precisa ficar antes de defineMatrix() para caso de matriz embaralhada
         self.emptyPosition = {'Horiz': None, 'Vert': None}
+        self.emptyValue = 0
         self.display = MatrixDisplay()
         self.defineMatrix(type)
 
@@ -46,9 +47,9 @@ class Matrix(object):
         randomValues = random.sample(range(0,9), 9)
         for value in randomValues:
             arr.append(Node(value,level))
-            if value == 0:
-                self.emptyPosition['Horiz'] = (count-1) % self.upperLevel
-                self.emptyPosition['Vert'] = level
+            if value == self.emptyValue:
+                self.emptyPosition['Horiz'] = level
+                self.emptyPosition['Vert'] = (count-1) % self.upperLevel
             if count % self.upperLevel == 0:
                 scrambledMatrix.append(arr)
                 arr = []
