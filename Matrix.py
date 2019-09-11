@@ -19,6 +19,9 @@ class Matrix(object):
     def getMatrix(self):
         return self.matrix
 
+    def getUpperLevel(self):
+        return self.upperLevel
+
     def getEmptyPosition(self):
         return self.emptyPosition
 

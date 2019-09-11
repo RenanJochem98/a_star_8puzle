@@ -13,6 +13,32 @@ class SearchEngine(object):
     def getGoalMatrix(self):
         return self.goalMatrix
 
+    def buscaCega(self):
+        state =self.scrambledMatrix
+        # Compara matrizes
+        # if state == self.goalMatrix:
+            # achou caminho
+        if False:
+            pass
+        else:
+            moves = self.getvalidMoves(state)
+
+    def getValidMoves(self, state):
+        emptyPosition = state.getEmptyPosition() #dict com posicao vertical e horizontal
+        leftPosition = emptyPosition['Vert']-1
+        rightPosition = emptyPosition['Vert']+1
+        upPosition = emptyPosition['Horiz']-1
+        downPosition = emptyPosition['Horiz']+1
+
+        movePositions = {'left': leftPosition, 'right': rightPosition, 'up': upPosition, 'down': downPosition}
+
+        validMoves = []
+        for position in movePositions:
+            if movePositions[position] >= 0 and movePositions[position] < state.getUpperLevel():
+                validMoves.append(position)
+
+        return validMoves
+
     # Heuristica: Numero de passos ate a posicao correta
     def calculateHeuristic(self):
         scrPosHoriz = 0; #horizontal
