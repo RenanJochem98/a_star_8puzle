@@ -38,6 +38,27 @@ class Matrix(object):
         lev = node.getValue()
         self.matrix[self.emptyPosition['Horiz']][self.emptyPosition['Vert']] = node
         self.matrix[positonHoriz][positionVert] = Node(self.emptyValue, lev)
+        self.emptyPosition['Horiz'] = positonHoriz
+        self.emptyPosition['Vert'] =positionVert
+
+    def moveTo(self, direction):
+        if direction == 'left':
+            newHoriz = self.emptyPosition['Vert'] - 1
+            newVert = self.emptyPosition['Horiz']
+            self.move(newHoriz, newVert)
+        if direction == 'right':
+            newHoriz = self.emptyPosition['Vert'] + 1
+            newVert = self.emptyPosition['Horiz']
+            self.move(newHoriz, newVert)
+        if direction == 'up':
+            newHoriz = self.emptyPosition['Vert']
+            newVert = self.emptyPosition['Horiz'] - 1
+            self.move(newHoriz, newVert)
+        if direction == 'down':
+            newHoriz = self.emptyPosition['Vert']
+            newVert = self.emptyPosition['Horiz'] + 1
+            self.move(newHoriz, newVert)
+
 
     def mountGoalMatrix(self):
         goalMatrix = []
