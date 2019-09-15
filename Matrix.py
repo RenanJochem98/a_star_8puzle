@@ -59,20 +59,20 @@ class Matrix(object):
 
     def moveTo(self, direction):
         if direction == 'left':
-            newHoriz = self.emptyPosition['Vert'] - 1
-            newVert = self.emptyPosition['Horiz']
+            newHoriz = self.emptyPosition['Horiz']
+            newVert = self.emptyPosition['Vert'] - 1
             self.move(newHoriz, newVert)
         if direction == 'right':
-            newHoriz = self.emptyPosition['Vert'] + 1
-            newVert = self.emptyPosition['Horiz']
+            newHoriz = self.emptyPosition['Horiz']
+            newVert = self.emptyPosition['Vert'] + 1
             self.move(newHoriz, newVert)
         if direction == 'up':
-            newHoriz = self.emptyPosition['Vert']
-            newVert = self.emptyPosition['Horiz'] - 1
+            newVert = self.emptyPosition['Vert']
+            newHoriz = self.emptyPosition['Horiz'] - 1
             self.move(newHoriz, newVert)
         if direction == 'down':
-            newHoriz = self.emptyPosition['Vert']
-            newVert = self.emptyPosition['Horiz'] + 1
+            newHoriz = self.emptyPosition['Horiz'] + 1
+            newVert = self.emptyPosition['Vert']
             self.move(newHoriz, newVert)
 
 
