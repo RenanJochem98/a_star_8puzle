@@ -19,9 +19,10 @@ class Matrix(object):
             self.matrix = matrix
             self.searchEmptyPosition()
 
-    def getMatrix(self):
+    def getValues(self):
         return self.matrix
-    def setMatrix(self, newMatrix):
+
+    def setValues(self, newMatrix):
         self.matrix = newMatrix;
 
     def getUpperLevel(self):

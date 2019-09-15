@@ -21,10 +21,10 @@ class SearchEngine(object):
     def isGoalMatrix(self, compareMatrix):
         finded = True
         horiz = 0
-        for scrLevel in compareMatrix.getMatrix():
+        for scrLevel in compareMatrix.getValues():
             vert = 0
             for scrNode in scrLevel:
-                value = self.goalMatrix.getMatrix()[horiz][vert].getValue()
+                value = self.goalMatrix.getValues()[horiz][vert].getValue()
                 if scrNode.getValue() != value:
                     finded = False
                     break
