@@ -3,21 +3,26 @@ from Node import Node
 from MatrixDisplay import MatrixDisplay
 class Matrix(object):
 
-    def __init__(self, type):
+    def __init__(self, type, matrix=None):
         self.upperLevel = 3 # precisa ficar antes de defineMatrix() para caso de matriz embaralhada
         self.emptyPosition = {'Horiz': None, 'Vert': None}
         self.emptyValue = 0
         self.display = MatrixDisplay()
-        self.defineMatrix(type)
+        self.defineMatrix(type, matrix)
 
-    def defineMatrix(self, type):
+    def defineMatrix(self, type, matrix):
         if type == 'scrambled':
             self.matrix = self.mountScrambledMatrix()
-        else:
+        elif type == 'goal':
             self.matrix = self.mountGoalMatrix()
+        else:
+            self.matrix = matrix
+            self.searchEmptyPosition()
 
     def getMatrix(self):
         return self.matrix
+    def setMatrix(self, newMatrix):
+        self.matrix = newMatrix;
 
     def getUpperLevel(self):
         return self.upperLevel
@@ -30,6 +35,17 @@ class Matrix(object):
             self.emptyPosition['Horiz'] = horiz
         if vert is not None:
             self.emptyPosition['Vert'] = vert
+
+    def searchEmptyPosition(self):
+        horizCount = 0
+        for level in self.matrix:
+            vertCount = 0
+            for node in level:
+                if node.getValue() == self.emptyValue:
+                    self.setEmptyPosition(horizCount, vertCount)
+                    break
+                vertCount +=1
+            horizCount +=1
 
     def move(self, positonHoriz, positionVert):
         #verifica se movimento eh valido
