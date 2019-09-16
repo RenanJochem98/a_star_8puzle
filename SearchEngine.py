@@ -9,6 +9,9 @@ class SearchEngine(object):
         self.states = {}
         self.toVisitStates = []
         self.visitedStates = []
+        self.stateId = 0
+        self.goalState = None
+        self.caminho = []
 
     def getScrambledMatrix(self):
         return self.scrambledMatrix
@@ -58,7 +61,7 @@ class SearchEngine(object):
         print(inicio)
         finded = False
         if state == None:
-            state =State( -1, self.scrambledMatrix)
+            state =State( -1, self.scrambledMatrix, 0)
             self.states[state.getId()] = state
             self.toVisitStates.append(state)
         count = 0
@@ -94,6 +97,8 @@ class SearchEngine(object):
             print("Numero de estados totais: ", end="")
             print("Id estado Final: ", end="")
             print(self.goalState.getId())
+            print("Nivel estado Final: ", end="")
+            print(self.goalState.getLevel())
             print("Estado Final: ")
             self.goalState.getMatrix().showNodeMatrix()
         else:
@@ -115,7 +120,7 @@ class SearchEngine(object):
     def buscaResumida(self, state):
         finded = False
         if state == None:
-            state =State( -1, self.scrambledMatrix)
+            state =State( -1, self.scrambledMatrix, 0)
             self.states[state.getId()] = state
             self.toVisitStates.append(state)
         count = 0
@@ -133,12 +138,22 @@ class SearchEngine(object):
 
         if finded:
             print("Achou")
-            print("Numero de estados totais: ", end="")
+            print("Numero de estados visitados: ", end="")
+            print(len(self.visitedStates))
+            print("Total de estados: ", end="")
+            print(len(self.states))
+            print("Estados a visitar: ", end="")
+            print(len(self.toVisitStates))
             print("Id estado Final: ", end="")
             print(self.goalState.getId())
+            print("Nivel estado Final: ", end="")
+            print(self.goalState.getLevel())
             print("Estado Final: ")
             self.goalState.getMatrix().showNodeMatrix()
         else:
             print("Não achou")
 
         print("Acabou")
+
+    def showCaminho(self):
+        pass
