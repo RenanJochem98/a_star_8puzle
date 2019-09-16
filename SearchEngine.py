@@ -1,3 +1,5 @@
+import time
+from datetime import datetime
 from State import State
 class SearchEngine(object):
 
@@ -49,3 +51,63 @@ class SearchEngine(object):
                 validMoves.append(position)
 
         return validMoves
+
+    def busca(self, state):
+        inicio = datetime.now()
+        print("Inicio:", end="")
+        print(inicio)
+        finded = False
+        if state == None:
+            state =State( -1, self.scrambledMatrix)
+            self.states[state.getId()] = state
+            self.toVisitStates.append(state)
+        count = 0
+        for currentState in self.toVisitStates:
+            count += 1
+            print("Loop: ", end="")
+            print(count)
+            print("Visitando estado: ", end="")
+            print(currentState.getId())
+            print("Estado Pai: ", end="")
+            print(currentState.getParentId())
+            currentMatrix = currentState.getMatrix()
+            # if count > 10:
+            #     break
+            if self.isGoalMatrix(currentMatrix):
+                self.goalState = currentState
+                print("Estado "+str(currentState.getId())+ " é final!")
+                finded = True
+                break
+            else:
+                # print("Estado "+str(currentState.getId())+ " não é final!")
+                self.visitNode(currentState, currentMatrix)
+            tempoExec = datetime.now()
+            print("Tempo de Execução: ", end="")
+            print(tempoExec - inicio)
+            currentMatrix.showNodeMatrix()
+            print("\n")
+        print("\n")
+        print("Fim da Busca")
+        print("\n")
+        if finded:
+            print("Achou")
+            print("Numero de estados totais: ", end="")
+            print("Id estado Final: ", end="")
+            print(self.goalState.getId())
+            print("Estado Final: ")
+            self.goalState.getMatrix().showNodeMatrix()
+        else:
+            print("Não achou")
+        print("States: ")
+        print(len(self.states))
+        print("\n")
+        print("Visited States: ")
+        print(len(self.visitedStates))
+        print("\n")
+        print("To Visit States: ")
+        print(len(self.toVisitStates))
+
+        print("\n")
+        fim = datetime.now()
+        print(fim - inicio)
+        print("Acabou")

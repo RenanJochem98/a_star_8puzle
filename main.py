@@ -34,7 +34,7 @@ print("Valores Calculados:")
 # scrambledMatrix.move(horiz, vert)
 # scrambledMatrix.showNodeMatrix()
 # print("\n")
-searchEngine.buscaCega(None)
+searchEngine.buscaCega()
 
 print("\n")
 print("#"*30)
