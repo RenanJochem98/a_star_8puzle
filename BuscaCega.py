@@ -23,4 +23,4 @@ class BuscaCega(SearchEngine):
             if newState.getId() not in self.visitedStates:
                 self.states[newState.getId()] = newState
                 self.toVisitStates.append(newState)
-        self.visitedStates.append(newState.getId())
+        self.visitedStates.append(currentState.getId())
