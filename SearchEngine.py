@@ -93,14 +93,7 @@ class SearchEngine(object):
         print("Fim da Busca")
         print("\n")
         if finded:
-            print("Achou")
-            print("Numero de estados totais: ", end="")
-            print("Id estado Final: ", end="")
-            print(self.goalState.getId())
-            print("Nivel estado Final: ", end="")
-            print(self.goalState.getLevel())
-            print("Estado Final: ")
-            self.goalState.getMatrix().showNodeMatrix()
+            self.showFindedResult(inicio, datetime.now())
         else:
             print("Não achou")
         print("States: ")
@@ -118,6 +111,7 @@ class SearchEngine(object):
         print("Acabou")
 
     def buscaResumida(self, state):
+        inicio = datetime.now()
         finded = False
         if state == None:
             state =State( -1, self.scrambledMatrix, 0)
@@ -136,14 +130,16 @@ class SearchEngine(object):
             else:
                 self.visitNode(currentState, currentMatrix) #deve ser implementa em classe filha
 
+        fim = datetime.now()
         if finded:
-            self.showFindedResult()
+            self.showFindedResult(inicio,fim)
         else:
             print("Não achou")
 
+
         print("Acabou")
 
-    def showFindedResult(self):
+    def showFindedResult(self, inicio,fim):
         print("Achou")
         print("Numero de estados visitados: ", end="")
         print(len(self.visitedStates))
@@ -151,6 +147,12 @@ class SearchEngine(object):
         print(len(self.states))
         print("Estados a visitar: ", end="")
         print(len(self.toVisitStates))
+        print("Inicio:", end="")
+        print(inicio)
+        print("Fim:", end="")
+        print(fim)
+        print("Tempo de Execução:", end="")
+        print(fim - inicio)
         print("Id estado Final: ", end="")
         print(self.goalState.getId())
         print("Nivel estado Final: ", end="")
