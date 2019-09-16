@@ -17,7 +17,7 @@ class BuscaCega(SearchEngine):
             self.stateId += 1
             tempMatrix = copy.deepcopy(matrix)
             tempMatrix.moveTo(move)
-            newState = State( currentState.getId(), tempMatrix, newLevel)
+            newState = State( currentState.getId(), tempMatrix, newLevel, move)
             if newState.getId() not in self.visitedStates:
                 self.states[newState.getId()] = newState
                 self.toVisitStates.append(newState)
