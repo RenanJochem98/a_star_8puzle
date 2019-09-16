@@ -14,7 +14,7 @@ scrambledMatrix = Matrix('scrambled')
 searchEngine = BuscaCega(scrambledMatrix, goalMatrix)
 
 
-print("Matr/iz objetivo:")
+print("Matriz objetivo:")
 # goalMatrix.showNodeMatrix()
 # print("\n")
 
