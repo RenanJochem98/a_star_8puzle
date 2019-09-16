@@ -89,21 +89,30 @@ class Matrix(object):
         return goalMatrix
 
     def mountScrambledMatrix(self):
-        arr = []
+        # para testes
         scrambledMatrix = []
-        count = 1
-        level = 0
-        randomValues = random.sample(range(0,9), 9)
-        for value in randomValues:
-            arr.append(Node(value,level))
-            if value == self.emptyValue:
-                self.emptyPosition['Horiz'] = level
-                self.emptyPosition['Vert'] = (count-1) % self.upperLevel
-            if count % self.upperLevel == 0:
-                scrambledMatrix.append(arr)
-                arr = []
-                level+=1
-            count+=1
+        scrambledMatrix.append([Node(4,1),Node(1,0),Node(2,0)])
+        scrambledMatrix.append([Node(self.emptyValue,2),Node(5,1),Node(3,0)])
+        scrambledMatrix.append([Node(7,2),Node(8,2),Node(6,1)])
+
+        self.emptyPosition['Horiz'] = 1
+        self.emptyPosition['Vert'] = 0
+
+        # arr = []
+        # scrambledMatrix = []
+        # count = 1
+        # level = 0
+        # randomValues = random.sample(range(0,9), 9)
+        # for value in randomValues:
+        #     arr.append(Node(value,level))
+        #     if value == self.emptyValue:
+        #         self.emptyPosition['Horiz'] = level
+        #         self.emptyPosition['Vert'] = (count-1) % self.upperLevel
+        #     if count % self.upperLevel == 0:
+        #         scrambledMatrix.append(arr)
+        #         arr = []
+        #         level+=1
+        #     count+=1
         return scrambledMatrix
 
     def showNodeMatrix(self):
