@@ -91,8 +91,8 @@ class Matrix(object):
     def mountScrambledMatrix(self):
         # para testes
         scrambledMatrix = []
-        scrambledMatrix.append([Node(4,1),Node(1,0),Node(2,0)])
-        scrambledMatrix.append([Node(self.emptyValue,2),Node(5,1),Node(3,0)])
+        scrambledMatrix.append([Node(5,1),Node(4,1),Node(2,0)])
+        scrambledMatrix.append([Node(self.emptyValue,2),Node(1,0),Node(3,0)])
         scrambledMatrix.append([Node(7,2),Node(8,2),Node(6,1)])
 
         self.emptyPosition['Horiz'] = 1
