@@ -137,23 +137,31 @@ class SearchEngine(object):
                 self.visitNode(currentState, currentMatrix) #deve ser implementa em classe filha
 
         if finded:
-            print("Achou")
-            print("Numero de estados visitados: ", end="")
-            print(len(self.visitedStates))
-            print("Total de estados: ", end="")
-            print(len(self.states))
-            print("Estados a visitar: ", end="")
-            print(len(self.toVisitStates))
-            print("Id estado Final: ", end="")
-            print(self.goalState.getId())
-            print("Nivel estado Final: ", end="")
-            print(self.goalState.getLevel())
-            print("Estado Final: ")
-            self.goalState.getMatrix().showNodeMatrix()
+            self.showFindedResult()
         else:
             print("Não achou")
 
         print("Acabou")
 
-    def showCaminho(self):
-        pass
+    def showFindedResult(self):
+        print("Achou")
+        print("Numero de estados visitados: ", end="")
+        print(len(self.visitedStates))
+        print("Total de estados: ", end="")
+        print(len(self.states))
+        print("Estados a visitar: ", end="")
+        print(len(self.toVisitStates))
+        print("Id estado Final: ", end="")
+        print(self.goalState.getId())
+        print("Nivel estado Final: ", end="")
+        print(self.goalState.getLevel())
+        # print("Estado Final: ")
+        # self.goalState.getMatrix().showNodeMatrix()
+
+        findedId = self.goalState.getParentId()
+        while findedId != -1:
+            self.caminho.append(findedId)
+            findedId = self.states[findedId].getParentId()
+        reverse_way = self.caminho[::-1] #sei la, funciona. Nao me pergunte como
+        for id in reverse_way:
+            print(self.states[id].getDirection())
