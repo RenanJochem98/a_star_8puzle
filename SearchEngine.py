@@ -111,3 +111,34 @@ class SearchEngine(object):
         fim = datetime.now()
         print(fim - inicio)
         print("Acabou")
+
+    def buscaResumida(self, state):
+        finded = False
+        if state == None:
+            state =State( -1, self.scrambledMatrix)
+            self.states[state.getId()] = state
+            self.toVisitStates.append(state)
+        count = 0
+        for currentState in self.toVisitStates:
+            count += 1
+            currentMatrix = currentState.getMatrix()
+            # if count > 10:
+            #     break
+            if self.isGoalMatrix(currentMatrix):
+                self.goalState = currentState
+                finded = True
+                break
+            else:
+                self.visitNode(currentState, currentMatrix) #deve ser implementa em classe filha
+
+        if finded:
+            print("Achou")
+            print("Numero de estados totais: ", end="")
+            print("Id estado Final: ", end="")
+            print(self.goalState.getId())
+            print("Estado Final: ")
+            self.goalState.getMatrix().showNodeMatrix()
+        else:
+            print("Não achou")
+
+        print("Acabou")
