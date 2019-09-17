@@ -1,4 +1,5 @@
 import time
+from itertools import filterfalse
 from datetime import datetime
 from State import State
 class SearchEngine(object):
@@ -56,26 +57,32 @@ class SearchEngine(object):
 
         return validMoves
 
-    def busca(self, state):
+    def busca(self, state, needOrder = False):
         inicio = datetime.now()
+        currentLevelControl = 1 #comeca com 1 para nao contar o primeiro nivel
+        previousState = None
         print("Inicio:", end="")
         print(inicio)
         finded = False
         if state == None:
             state =State( -1, self.scrambledMatrix, 0)
             self.states[state.getId()] = state
-            self.toVisitStates.append(state)
+            self.toVisitStates.append(state.getId())
         count = 0
-        for currentState in self.toVisitStates:
-            count += 1
+        currentStateId = state.getId()
+        while not finded:
+            currentState = self.states[currentStateId]
+
             print("Loop: ", end="")
             print(count)
             print("Visitando estado: ", end="")
             print(currentState.getId())
             print("Estado Pai: ", end="")
             print(currentState.getParentId())
+            print("Nivel atual: ", end="")
+            print(currentState.getLevel())
             currentMatrix = currentState.getMatrix()
-            # if count > 10:
+            # if count > 4:
             #     break
             if self.isGoalMatrix(currentMatrix):
                 self.goalState = currentState
@@ -83,12 +90,23 @@ class SearchEngine(object):
                 finded = True
                 break
             else:
-                # print("Estado "+str(currentState.getId())+ " não é final!")
                 self.visitNode(currentState, currentMatrix)
+                del self.toVisitStates[0]
+                currentStateId = self.toVisitStates[0] # novo posicao 0 era posicao 1 antes da delecao
+                if self.currentLevel != currentLevelControl: #current level pode ser alterado no visitNode()
+                    self.addCoustInVisitedStates()
+                if needOrder:
+                    self.toVisitStates.sort(key=lambda x: self.states[x].getOrdered())
+                    for i in self.visitedStates:
+                        self.states[i].setH(0)
+
+            currentLevelControl = self.currentLevel
+            currentState.setVisited(True)
+            currentMatrix.showNodeMatrix()
+            count += 1
             tempoExec = datetime.now()
             print("Tempo de Execução: ", end="")
             print(tempoExec - inicio)
-            # currentMatrix.showNodeMatrix()
             print("\n")
         print("\n")
         print("Fim da Busca")
@@ -111,19 +129,22 @@ class SearchEngine(object):
         print(fim - inicio)
         print("Acabou")
 
-    def buscaResumida(self, state):
-        currentLevelControl = 1 #comeca com 1 para nao contar o primeiro nivel
+    def buscaResumida(self, state, needOrder = False):
         inicio = datetime.now()
+        currentLevelControl = 1 #comeca com 1 para nao contar o primeiro nivel
+        previousState = None
         finded = False
         if state == None:
             state =State( -1, self.scrambledMatrix, 0)
             self.states[state.getId()] = state
-            self.toVisitStates.append(state)
+            self.toVisitStates.append(state.getId())
         count = 0
-        for currentState in self.toVisitStates:
+        currentStateId = state.getId()
+        while not finded:
+            currentState = self.states[currentStateId];
             count += 1
             currentMatrix = currentState.getMatrix()
-            # if count > 10:
+            # if count > 2:
             #     break
             if self.isGoalMatrix(currentMatrix):
                 self.goalState = currentState
@@ -131,8 +152,14 @@ class SearchEngine(object):
                 break
             else:
                 self.visitNode(currentState, currentMatrix) #deve ser implementa em classe filha
+                del self.toVisitStates[0]
+                currentStateId = self.toVisitStates[0] # novo posicao 0 era posicao 1 antes da delecao
                 if self.currentLevel != currentLevelControl: #current level pode ser alterado no visitNode()
                     self.addCoustInVisitedStates()
+                if needOrder:
+                    self.toVisitStates.sort(key=lambda x: self.states[x].getOrdered())
+                    for i in self.visitedStates:
+                        self.states[i].setH(0)
             currentLevelControl = self.currentLevel
 
         fim = datetime.now()
@@ -140,7 +167,6 @@ class SearchEngine(object):
             self.showFindedResult(inicio,fim)
         else:
             print("Não achou")
-
 
         print("Acabou")
 
@@ -150,12 +176,12 @@ class SearchEngine(object):
         print(len(self.visitedStates))
         print("Total de estados: ", end="")
         print(len(self.states))
-        print("Estados a visitar: ", end="")
-        print(len(self.toVisitStates))
-        print("Inicio:", end="")
-        print(inicio)
-        print("Fim:", end="")
-        print(fim)
+        # print("Estados a visitar: ", end="")
+        # print(len(self.toVisitStates))
+        # print("Inicio:", end="")
+        # print(inicio)
+        # print("Fim:", end="")
+        # print(fim)
         print("Tempo de Execução:", end="")
         print(fim - inicio)
         print("Id estado Final: ", end="")
@@ -169,13 +195,15 @@ class SearchEngine(object):
         # print("Estado Final: ")
         # self.goalState.getMatrix().showNodeMatrix()
 
+        self.caminho.append(self.goalState.getId())
         findedId = self.goalState.getParentId()
         while findedId != -1:
             self.caminho.append(findedId)
             findedId = self.states[findedId].getParentId()
         reverse_way = self.caminho[::-1] #sei la, funciona. Nao me pergunte como
+        print("Caminho (Da posicao vazia): ", end="")
         for id in reverse_way:
-            print(self.states[id].getDirection())
+            print(self.states[id].getDirection(), end=" -> ")
 
     def addCoustInVisitedStates(self):
         for state in self.visitedStates:
