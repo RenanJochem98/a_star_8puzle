@@ -6,12 +6,13 @@ class SearchEngine(object):
     def __init__(self, scrambledMatrix, goalMatrix):
         self.scrambledMatrix = scrambledMatrix
         self.goalMatrix = goalMatrix
+        self.goalState = None
         self.states = {}
         self.toVisitStates = []
         self.visitedStates = []
-        self.stateId = 0
-        self.goalState = None
         self.caminho = []
+        self.stateId = 0
+        self.currentLevel = 0
 
     def getScrambledMatrix(self):
         return self.scrambledMatrix
@@ -87,7 +88,7 @@ class SearchEngine(object):
             tempoExec = datetime.now()
             print("Tempo de Execução: ", end="")
             print(tempoExec - inicio)
-            currentMatrix.showNodeMatrix()
+            # currentMatrix.showNodeMatrix()
             print("\n")
         print("\n")
         print("Fim da Busca")
@@ -111,6 +112,7 @@ class SearchEngine(object):
         print("Acabou")
 
     def buscaResumida(self, state):
+        currentLevelControl = 1 #comeca com 1 para nao contar o primeiro nivel
         inicio = datetime.now()
         finded = False
         if state == None:
@@ -129,6 +131,9 @@ class SearchEngine(object):
                 break
             else:
                 self.visitNode(currentState, currentMatrix) #deve ser implementa em classe filha
+                if self.currentLevel != currentLevelControl: #current level pode ser alterado no visitNode()
+                    self.addCoustInVisitedStates()
+            currentLevelControl = self.currentLevel
 
         fim = datetime.now()
         if finded:
@@ -157,6 +162,10 @@ class SearchEngine(object):
         print(self.goalState.getId())
         print("Nivel estado Final: ", end="")
         print(self.goalState.getLevel())
+        print("Custo do estado final: ", end="")
+        print(self.goalState.getCoust())
+        print("Custo do estado inicial: ", end="")
+        print(self.states[self.visitedStates[0]].getCoust())
         # print("Estado Final: ")
         # self.goalState.getMatrix().showNodeMatrix()
 
@@ -167,3 +176,7 @@ class SearchEngine(object):
         reverse_way = self.caminho[::-1] #sei la, funciona. Nao me pergunte como
         for id in reverse_way:
             print(self.states[id].getDirection())
+
+    def addCoustInVisitedStates(self):
+        for state in self.visitedStates:
+            self.states[state].addCoust()

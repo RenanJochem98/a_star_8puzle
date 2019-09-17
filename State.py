@@ -7,6 +7,7 @@ class State(object):
         self.direction = direction
         self.level = level
         self.childs = []
+        self.coust = 0
 
     def createId(self):
         id = ""
@@ -26,3 +27,9 @@ class State(object):
         return self.level
     def addChild(self, childId):
         self.childs.append(childId)
+    def getCoust(self):
+        return self.coust
+    def setCoust(self, newCoust):
+        self.coust = newCoust
+    def addCoust(self):
+        self.coust +=1

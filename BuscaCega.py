@@ -13,6 +13,7 @@ class BuscaCega(SearchEngine):
     def visitNode(self, currentState, matrix):
         validMoves = self.getValidMoves(matrix)
         newLevel = currentState.getLevel() + 1
+        self.currentLevel = newLevel
         for move in validMoves:
             self.stateId += 1
             tempMatrix = copy.deepcopy(matrix)
