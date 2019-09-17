@@ -8,6 +8,7 @@ class State(object):
         self.level = level
         self.childs = []
         self.coust = 0
+        self.h = 0
 
     def createId(self):
         id = ""
@@ -33,3 +34,8 @@ class State(object):
         self.coust = newCoust
     def addCoust(self):
         self.coust +=1
+    def setH(self, newH):
+        self.h = newH
+    def getOrdered(self):
+        value = self.h + self.coust
+        return value
