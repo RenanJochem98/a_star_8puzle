@@ -151,6 +151,7 @@ class SearchEngine(object):
                 break
             else:
                 self.visitNode(currentState, currentMatrix) #deve ser implementa em classe filha
+                currentState.setVisited(True)
                 del self.toVisitStates[0]
                 currentStateId = self.toVisitStates[0] # novo posicao 0 era posicao 1 antes da delecao
                 if self.currentLevel != currentLevelControl: #current level pode ser alterado no visitNode()
@@ -158,7 +159,8 @@ class SearchEngine(object):
                 if needOrder:
                     self.toVisitStates.sort(key=lambda x: self.states[x].getOrdered())
                     for i in self.visitedStates:
-                        self.states[i].setH(0)
+                        if self.states[i].getVisited():
+                            self.states[i].setH(0)
             currentLevelControl = self.currentLevel
 
         fim = datetime.now()

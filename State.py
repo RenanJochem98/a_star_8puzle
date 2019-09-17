@@ -9,6 +9,7 @@ class State(object):
         self.childs = []
         self.coust = 0
         self.h = 0
+        self.visited = False
 
     def createId(self):
         id = ""
@@ -36,6 +37,10 @@ class State(object):
         self.coust +=1
     def setH(self, newH):
         self.h = newH
+    def getVisited(self):
+        return self.visited
+    def setVisited(self, newVisited):
+        self.visited = newVisited
     def getOrdered(self):
         value = self.h + self.coust
         return value
