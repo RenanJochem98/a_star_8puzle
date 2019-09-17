@@ -53,29 +53,32 @@ class Matrix(object):
         node = self.matrix[positonHoriz][positionVert]
         val = node.getValue()
         lev = node.getValue()
+        result = self.matrix[self.emptyPosition['Horiz']][self.emptyPosition['Vert']]
         self.matrix[self.emptyPosition['Horiz']][self.emptyPosition['Vert']] = node
+
         self.matrix[positonHoriz][positionVert] = Node(self.emptyValue, lev)
         self.emptyPosition['Horiz'] = positonHoriz
         self.emptyPosition['Vert'] =positionVert
+        return result
 
     def moveTo(self, direction):
         if direction == 'left':
             newHoriz = self.emptyPosition['Horiz']
             newVert = self.emptyPosition['Vert'] - 1
-            self.move(newHoriz, newVert)
+            node= self.move(newHoriz, newVert)
         if direction == 'right':
             newHoriz = self.emptyPosition['Horiz']
             newVert = self.emptyPosition['Vert'] + 1
-            self.move(newHoriz, newVert)
+            node= self.move(newHoriz, newVert)
         if direction == 'up':
             newVert = self.emptyPosition['Vert']
             newHoriz = self.emptyPosition['Horiz'] - 1
-            self.move(newHoriz, newVert)
+            node= self.move(newHoriz, newVert)
         if direction == 'down':
             newHoriz = self.emptyPosition['Horiz'] + 1
             newVert = self.emptyPosition['Vert']
-            self.move(newHoriz, newVert)
-
+            node= self.move(newHoriz, newVert)
+        return node
 
     def mountGoalMatrix(self):
         goalMatrix = []
@@ -91,11 +94,14 @@ class Matrix(object):
     def mountScrambledMatrix(self):
         # para testes
         scrambledMatrix = []
+        # scrambledMatrix.append([Node(self.emptyValue,2),Node(1,0),Node(2,0)])
+        # scrambledMatrix.append([Node(4,1),Node(5,1),Node(3,0)])
+        # scrambledMatrix.append([Node(7,2),Node(8,2),Node(6,1)])
         scrambledMatrix.append([Node(5,1),Node(4,1),Node(2,0)])
-        scrambledMatrix.append([Node(self.emptyValue,2),Node(1,0),Node(3,0)])
-        scrambledMatrix.append([Node(7,2),Node(8,2),Node(6,1)])
+        scrambledMatrix.append([Node(7,2),Node(1,0),Node(3,0)])
+        scrambledMatrix.append([Node(self.emptyValue,2),Node(8,2),Node(6,1)])
 
-        self.emptyPosition['Horiz'] = 1
+        self.emptyPosition['Horiz'] = 2
         self.emptyPosition['Vert'] = 0
 
         # arr = []
