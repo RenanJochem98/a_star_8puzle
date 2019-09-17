@@ -101,7 +101,6 @@ class SearchEngine(object):
                         self.states[i].setH(0)
 
             currentLevelControl = self.currentLevel
-            currentState.setVisited(True)
             currentMatrix.showNodeMatrix()
             count += 1
             tempoExec = datetime.now()
