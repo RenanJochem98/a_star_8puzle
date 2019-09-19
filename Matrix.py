@@ -101,6 +101,10 @@ class Matrix(object):
         scrambledMatrix.append([Node(7,2),Node(1,0),Node(3,0)])
         scrambledMatrix.append([Node(self.emptyValue,2),Node(8,2),Node(6,1)])
 
+        # scrambledMatrix.append([Node(4,1),Node(7,1),Node(5,0)])
+        # scrambledMatrix.append([Node(self.emptyValue,2),Node(2,0),Node(1,0)])
+        # scrambledMatrix.append([Node(3,2),Node(6,2),Node(8,1)])
+
         self.emptyPosition['Horiz'] = 2
         self.emptyPosition['Vert'] = 0
 
