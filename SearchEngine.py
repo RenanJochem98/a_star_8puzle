@@ -1,4 +1,5 @@
 import time
+from operator import attrgetter
 from itertools import filterfalse
 from datetime import datetime
 from State import State
@@ -67,12 +68,10 @@ class SearchEngine(object):
         if state == None:
             state =State( -1, self.scrambledMatrix, 0)
             self.states[state.getId()] = state
-            self.toVisitStates.append(state.getId())
+            self.toVisitStates.append(state)
         count = 0
-        currentStateId = state.getId()
+        currentState = state
         while not finded:
-            currentState = self.states[currentStateId]
-
             print("Loop: ", end="")
             print(count)
             print("Visitando estado: ", end="")
