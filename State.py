@@ -2,20 +2,22 @@ class State(object):
 
     def __init__(self, parentId, matrix, level, direction=""):
         self.matrix = matrix
+        self.coust = 0
         self.id = self.createId()
         self.parentId = parentId
         self.direction = direction
         self.level = level
         self.childs = []
-        self.coust = 0
         self.h = 0
-        self.visited = False
 
     def createId(self):
         id = ""
         for level in self.matrix.getValues():
             for node in level:
                 id += str(node.getValue())
+        if self.coust > 0:
+            id += str(self.coust)
+
         return int(id)
     def getDirection(self):
         return self.direction
@@ -35,12 +37,10 @@ class State(object):
         self.coust = newCoust
     def addCoust(self):
         self.coust +=1
+    def getH(self):
+        return self.h
     def setH(self, newH):
         self.h = newH
-    def getVisited(self):
-        return self.visited
-    def setVisited(self, newVisited):
-        self.visited = newVisited
     def getOrdered(self):
         value = self.h + self.coust
         return value
