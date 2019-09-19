@@ -7,7 +7,6 @@ class BuscaHeuristica(SearchEngine):
         SearchEngine.__init__(self, scrambledMatrix, goalMatrix)
 
     def buscaHeuristica(self):
-        self.calculateHeuristic() # calcula heuristica para cada nodo do matriz inicial
         self.buscaResumida(None, True)
 
     def visitNode(self, currentState, matrix):
@@ -19,29 +18,30 @@ class BuscaHeuristica(SearchEngine):
             tempMatrix = copy.deepcopy(matrix)
             node = tempMatrix.moveTo(move)
             newState = State( currentState.getId(), tempMatrix, newLevel, move)
-            newState.setH(node.getH())
+            h = self.calculateHeuristic(tempMatrix)
+            newState.setH(h)
             if newState.getId() not in self.visitedStates:
                 self.states[newState.getId()] = newState
-                self.toVisitStates.append(newState.getId())
+                self.toVisitStates.append(newState)
 
         self.visitedStates.append(currentState.getId())
 
 
     # Heuristica: Numero de passos ate a posicao correta
-    def calculateHeuristic(self):
+    def calculateHeuristic(self, matrix=None):
+        if matrix == None:
+            matrix = self.scrambledMatrix
+        estimateValue = 0
         scrPosHoriz = 0; #horizontal
-        for scrLevel in self.scrambledMatrix.getValues():
+        for scrLevel in matrix.getValues():
             scrPosVert = 0; #vertical
             for scrNode in scrLevel:
                 value =scrNode.getValue()
-                numberSteps = self.numberSteps(value, scrPosHoriz, scrPosVert)
-                scrNode.setH(numberSteps)
-                # print(scrPosHoriz, end=" ")
-                # print(scrPosVert, end=" ")
-                # print(value, end=" ")
-                # print(numberSteps)
+                estimateValue += self.numberSteps(value, scrPosHoriz, scrPosVert)
+                # scrNode.setH(numberSteps)
                 scrPosVert+=1
             scrPosHoriz+=1
+        return estimateValue
 
     def numberSteps(self, value, positionHoriz, positionVert):
         searched = False
