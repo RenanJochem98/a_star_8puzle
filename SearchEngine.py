@@ -135,11 +135,10 @@ class SearchEngine(object):
         if state == None:
             state =State( -1, self.scrambledMatrix, 0)
             self.states[state.getId()] = state
-            self.toVisitStates.append(state.getId())
+            self.toVisitStates.append(state)
         count = 0
-        currentStateId = state.getId()
+        currentState = state
         while not finded:
-            currentState = self.states[currentStateId];
             count += 1
             currentMatrix = currentState.getMatrix()
             # if count > 2:
