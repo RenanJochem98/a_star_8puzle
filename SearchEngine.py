@@ -199,10 +199,31 @@ class SearchEngine(object):
             self.caminho.append(findedId)
             findedId = self.states[findedId].getParentId()
         reverse_way = self.caminho[::-1] #sei la, funciona. Nao me pergunte como
+        print("Caminho : ", end="")
+        print(len(self.caminho))
         print("Caminho (Da posicao vazia): ", end="")
+        count = 0
         for id in reverse_way:
-            print(self.states[id].getDirection(), end=" -> ")
+            endLine = " -> "
+            if count%5 == 0:
+                endLine = "\n"
+            print(self.states[id].getDirection(), end=endLine)
+            count+=1
 
     def addCoustInVisitedStates(self):
         for state in self.visitedStates:
             self.states[state].addCoust()
+
+    def showStateArrays(self):
+        print("Estados a visitar")
+        for a in self.toVisitStates:
+            print(str(a.getId())+"("+str(a.getCoust())+")"+"("+str(a.getH())+")", end=" -> ")
+        print("\n")
+        print("Estados visitados")
+        for a in self.visitedStates:
+            print(str(self.states[a].getId())+"("+str(self.states[a].getCoust())+")"+"("+str(self.states[a].getH())+")", end=" -> ")
+        print("\n")
+        print("Estados")
+        for a in self.states:
+            print(str(self.states[a].getId())+"("+str(self.states[a].getCoust())+")"+"("+str(self.states[a].getH())+")", end=" -> ")
+        print("\n")
