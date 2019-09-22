@@ -1,17 +1,17 @@
-class MatrixDisplay(object):
+class BoardDisplay(object):
 
-    def showMatrix(self, matrix, breakLineMatrix):
+    def showBoard(self, matrix, breakLineBoard):
         print ("Visao resumida:")
         for level in matrix:
             count = 1
             for val in level:
                 endLine = " "
-                if count % breakLineMatrix == 0:
+                if count % breakLineBoard == 0:
                     endLine = "\n"
                 print(val, end=endLine)
                 count+=1
 
-    def showMatrixDetailed(self, matrix, breakLineMatrix):
+    def showBoardDetailed(self, matrix, breakLineBoard):
         print ("Visao Detalhada:")
         print ("N = Nodo")
         print ("L = Nivel (Level)")
@@ -22,7 +22,7 @@ class MatrixDisplay(object):
             count = 1
             for node in level:
                 endLine = "   "
-                if count % breakLineMatrix == 0:
+                if count % breakLineBoard == 0:
                     endLine = "\n"
                 print(node.getValue(),node.getLevel(),node.getH(), end=endLine)
                 count+=1

@@ -1,12 +1,12 @@
 import random
-from MatrixDisplay import MatrixDisplay
-class Matrix(object):
+from BoardDisplay import BoardDisplay
+class Board(object):
 
     def __init__(self, type, matrix=None):
         self.upperLevel = 3 # precisa ficar antes de defineMatrix() para caso de matriz embaralhada
         self.emptyPosition = {'Horiz': None, 'Vert': None}
         self.emptyValue = 0
-        self.display = MatrixDisplay()
+        self.display = BoardDisplay()
         self.defineMatrix(type, matrix)
 
     def defineMatrix(self, type, matrix):
@@ -124,7 +124,7 @@ class Matrix(object):
         return scrambledMatrix
 
     def showNodeMatrix(self):
-        self.display.showMatrix(self.matrix, self.upperLevel)
+        self.display.showBoard(self.matrix, self.upperLevel)
 
     def showNodeMatrixDetailed(self):
-        self.display.showMatrixDetailed(self.matrix, self.upperLevel)
+        self.display.showBoardDetailed(self.matrix, self.upperLevel)

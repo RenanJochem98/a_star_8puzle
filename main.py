@@ -1,4 +1,4 @@
-from Matrix import Matrix
+from Board import Board
 # from SearchEngine import SearchEngine
 from BuscaCega import BuscaCega
 from BuscaHeuristica import BuscaHeuristica
@@ -9,18 +9,18 @@ print(" "*7+"INICIANDO BUSCA")
 print("#"*30)
 print("\n")
 
-goalMatrix = Matrix('goal')
-scrambledMatrix = Matrix('scrambled')
-buscaCega = BuscaCega(scrambledMatrix, goalMatrix)
-buscaHeuristica = BuscaHeuristica(scrambledMatrix, goalMatrix)
+goalBoard = Board('goal')
+scrambledBoard = Board('scrambled')
+buscaCega = BuscaCega(scrambledBoard, goalBoard)
+buscaHeuristica = BuscaHeuristica(scrambledBoard, goalBoard)
 
 
 print("Matriz objetivo:")
-goalMatrix.showNodeMatrix()
+goalBoard.showNodeMatrix()
 print("\n")
 
 print("Matriz Inicial:")
-scrambledMatrix.showNodeMatrix()
+scrambledBoard.showNodeMatrix()
 print("\n")
 
 print("####  INICIO BUSCA CEGA ####")
