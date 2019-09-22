@@ -13,8 +13,8 @@ class State(object):
     def createId(self):
         id = ""
         for level in self.matrix.getValues():
-            for node in level:
-                id += str(node.getValue())
+            for val in level:
+                id += str(val)
         if self.coust > 0:
             id += str(self.coust)
 

@@ -4,11 +4,11 @@ class MatrixDisplay(object):
         print ("Visao resumida:")
         for level in matrix:
             count = 1
-            for node in level:
+            for val in level:
                 endLine = " "
                 if count % breakLineMatrix == 0:
                     endLine = "\n"
-                print(node.getValue(), end=endLine)
+                print(val, end=endLine)
                 count+=1
 
     def showMatrixDetailed(self, matrix, breakLineMatrix):

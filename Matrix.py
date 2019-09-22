@@ -1,5 +1,4 @@
 import random
-from Node import Node
 from MatrixDisplay import MatrixDisplay
 class Matrix(object):
 
@@ -41,8 +40,8 @@ class Matrix(object):
         horizCount = 0
         for level in self.matrix:
             vertCount = 0
-            for node in level:
-                if node.getValue() == self.emptyValue:
+            for val in level:
+                if val == self.emptyValue:
                     self.setEmptyPosition(horizCount, vertCount)
                     break
                 vertCount +=1
@@ -50,13 +49,12 @@ class Matrix(object):
 
     def move(self, positonHoriz, positionVert):
         #verifica se movimento eh valido
-        node = self.matrix[positonHoriz][positionVert]
-        val = node.getValue()
-        lev = node.getValue()
-        result = self.matrix[self.emptyPosition['Horiz']][self.emptyPosition['Vert']]
-        self.matrix[self.emptyPosition['Horiz']][self.emptyPosition['Vert']] = node
+        val = self.matrix[positonHoriz][positionVert]
 
-        self.matrix[positonHoriz][positionVert] = Node(self.emptyValue, lev)
+        result = self.matrix[self.emptyPosition['Horiz']][self.emptyPosition['Vert']]
+        self.matrix[self.emptyPosition['Horiz']][self.emptyPosition['Vert']] = val
+
+        self.matrix[positonHoriz][positionVert] = self.emptyValue
         self.emptyPosition['Horiz'] = positonHoriz
         self.emptyPosition['Vert'] =positionVert
         return result
@@ -82,18 +80,24 @@ class Matrix(object):
 
     def mountGoalMatrix(self):
         goalMatrix = []
-        goalMatrix.append([Node(1,0),Node(2,0),Node(3,0)])
-        goalMatrix.append([Node(4,1),Node(5,1),Node(6,1)])
-        goalMatrix.append([Node(7,2),Node(8,2),Node(self.emptyValue,2)])
+        goalMatrix.append([1,2,3])
+        goalMatrix.append([4,5,6])
+        goalMatrix.append([7,8,self.emptyValue])
+        # goalMatrix.append([Node(1,0),Node(2,0),Node(3,0)])
+        # goalMatrix.append([Node(4,1),Node(5,1),Node(6,1)])
+        # goalMatrix.append([Node(7,2),Node(8,2),Node(self.emptyValue,2)])
 
         return goalMatrix
 
     def mountScrambledMatrix(self):
         # para testes
         scrambledMatrix = []
-        scrambledMatrix.append([Node(self.emptyValue,2),Node(1,0),Node(2,0)])
-        scrambledMatrix.append([Node(4,1),Node(5,1),Node(3,0)])
-        scrambledMatrix.append([Node(7,2),Node(8,2),Node(6,1)])
+        scrambledMatrix.append([self.emptyValue,1,2])
+        scrambledMatrix.append([4,5,3])
+        scrambledMatrix.append([7,8,6])
+        # scrambledMatrix.append([Node(self.emptyValue,2),Node(1,0),Node(2,0)])
+        # scrambledMatrix.append([Node(4,1),Node(5,1),Node(3,0)])
+        # scrambledMatrix.append([Node(7,2),Node(8,2),Node(6,1)])
         # scrambledMatrix.append([Node(5,1),Node(4,1),Node(2,0)])
         # scrambledMatrix.append([Node(7,2),Node(1,0),Node(3,0)])
         # scrambledMatrix.append([Node(self.emptyValue,2),Node(8,2),Node(6,1)])

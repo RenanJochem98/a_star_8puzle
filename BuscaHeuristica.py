@@ -35,10 +35,8 @@ class BuscaHeuristica(SearchEngine):
         scrPosHoriz = 0; #horizontal
         for scrLevel in matrix.getValues():
             scrPosVert = 0; #vertical
-            for scrNode in scrLevel:
-                value =scrNode.getValue()
-                estimateValue += self.numberSteps(value, scrPosHoriz, scrPosVert)
-                # scrNode.setH(numberSteps)
+            for scrVal in scrLevel:
+                estimateValue += self.numberSteps(scrVal, scrPosHoriz, scrPosVert)
                 scrPosVert+=1
             scrPosHoriz+=1
         return estimateValue
@@ -49,9 +47,9 @@ class BuscaHeuristica(SearchEngine):
         for level in self.goalMatrix.getValues():
             searchedVert = -1
             searchedHoriz+=1
-            for node in level:
+            for val in level:
                 searchedVert+=1
-                if node.getValue() == value:
+                if val == value:
                     searched = True
                     break
             if searched:

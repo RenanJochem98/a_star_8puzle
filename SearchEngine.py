@@ -31,9 +31,9 @@ class SearchEngine(object):
         horiz = 0
         for scrLevel in compareMatrix.getValues():
             vert = 0
-            for scrNode in scrLevel:
-                value = self.goalMatrix.getValues()[horiz][vert].getValue()
-                if scrNode.getValue() != value:
+            for scrVal in scrLevel:
+                value = self.goalMatrix.getValues()[horiz][vert]
+                if scrVal != value:
                     finded = False
                     break
                 vert += 1
@@ -98,7 +98,7 @@ class SearchEngine(object):
                     #         self.states[i].setH(0)
                 currentState = self.toVisitStates[0] # novo posicao 0 era posicao 1 antes da delecao
                 if self.currentLevel != currentLevelControl: #current level pode ser alterado no visitNode()
-                    self.addCoustInVisitedStates()                
+                    self.addCoustInVisitedStates()
             currentLevelControl = self.currentLevel
             currentMatrix.showNodeMatrix()
             count += 1

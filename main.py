@@ -1,4 +1,3 @@
-from Node import Node
 from Matrix import Matrix
 # from SearchEngine import SearchEngine
 from BuscaCega import BuscaCega
