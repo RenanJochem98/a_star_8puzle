@@ -17,7 +17,7 @@ class Matrix(object):
             self.matrix = self.mountGoalMatrix()
         else:
             self.matrix = matrix
-            self.searchEmptyPosition()
+        self.searchEmptyPosition()
 
     def getValues(self):
         return self.matrix
@@ -86,27 +86,21 @@ class Matrix(object):
         goalMatrix.append([Node(4,1),Node(5,1),Node(6,1)])
         goalMatrix.append([Node(7,2),Node(8,2),Node(self.emptyValue,2)])
 
-        self.emptyPosition['Horiz'] = 2
-        self.emptyPosition['Vert'] = 2
-
         return goalMatrix
 
     def mountScrambledMatrix(self):
         # para testes
         scrambledMatrix = []
-        # scrambledMatrix.append([Node(self.emptyValue,2),Node(1,0),Node(2,0)])
-        # scrambledMatrix.append([Node(4,1),Node(5,1),Node(3,0)])
-        # scrambledMatrix.append([Node(7,2),Node(8,2),Node(6,1)])
-        scrambledMatrix.append([Node(5,1),Node(4,1),Node(2,0)])
-        scrambledMatrix.append([Node(7,2),Node(1,0),Node(3,0)])
-        scrambledMatrix.append([Node(self.emptyValue,2),Node(8,2),Node(6,1)])
+        scrambledMatrix.append([Node(self.emptyValue,2),Node(1,0),Node(2,0)])
+        scrambledMatrix.append([Node(4,1),Node(5,1),Node(3,0)])
+        scrambledMatrix.append([Node(7,2),Node(8,2),Node(6,1)])
+        # scrambledMatrix.append([Node(5,1),Node(4,1),Node(2,0)])
+        # scrambledMatrix.append([Node(7,2),Node(1,0),Node(3,0)])
+        # scrambledMatrix.append([Node(self.emptyValue,2),Node(8,2),Node(6,1)])
 
         # scrambledMatrix.append([Node(4,1),Node(7,1),Node(5,0)])
         # scrambledMatrix.append([Node(self.emptyValue,2),Node(2,0),Node(1,0)])
         # scrambledMatrix.append([Node(3,2),Node(6,2),Node(8,1)])
-
-        self.emptyPosition['Horiz'] = 2
-        self.emptyPosition['Vert'] = 0
 
         # arr = []
         # scrambledMatrix = []
