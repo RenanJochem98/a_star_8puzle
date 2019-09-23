@@ -2,31 +2,17 @@ from Board import Board
 # from SearchEngine import SearchEngine
 from BuscaCega import BuscaCega
 from BuscaHeuristica import BuscaHeuristica
+from Input import Input
 
 print("")
 print("#"*30)
 print(" "*7+"INICIANDO BUSCA")
 print("#"*30)
 print("\n")
-mat = ""
 
-while len(mat) != 9:
-    print("Digite o Jogo como deseja resolver:(No formato: 0,2,1,5,6...[separados por virgula e sem espaços em branco])(Zero representa a posicao vazia)")
-    mat = input()
-    mat.strip() #para retirar espacoes em brando na volta
-    mat = mat.split(",")
-    if len(mat) > 9:
-        print("Você digitou numeros a mais!!")
-    elif len(mat) < 9:
-        print("Você digitou números a menos!!!")
+newInput = Input()
+matrix =  newInput.pedeMatrizInicial()
 
-matrix = []
-temp = []
-for i in mat:
-    temp.append(int(i))
-    if len(temp) == 3:
-        matrix.append(temp)
-        temp = []
 goalBoard = Board('goal')
 scrambledBoard = Board('matrix', matrix)
 
@@ -45,7 +31,7 @@ print("\n")
 opt = None
 while opt != 0:
     try:
-        print("Escolha o algoritimo de busca: \n 1 - Busca Cega\n2 - Busca heuristica(Numero de passos até a posicao correta)\n0 - Finalizar")
+        print("Escolha o algoritimo de busca: \n 1 - Busca Cega\n2 - Busca heuristica(Numero de passos até a posicao correta)\n3 - Trocar tabuleiro\n0 - Finalizar")
         opt = int(input())
     except ValueError:
         print("Você digitou um valor que não é um número!!!")
@@ -60,6 +46,13 @@ while opt != 0:
         print("\n")
         buscaHeuristica.buscaHeuristica()
         print("####   FIM BUSCA HEURISTICA ####")
+    elif  opt == 3:
+        matrix =  newInput.pedeMatrizInicial()
+        scrambledBoard = Board('matrix', matrix)
+        print("Matriz Inicial Alterado:")
+        scrambledBoard.showNodeMatrix()
+        print("\n")
+
 
     elif  opt == 0:
         print("Fim")
