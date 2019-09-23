@@ -59,3 +59,9 @@ class BuscaHeuristica(SearchEngine):
         numberStepsVert = abs(searchedVert - positionVert)
         numberSteps = numberStepsHoriz + numberStepsVert
         return numberSteps
+
+    def foraDoLugar(self, value, positionHoriz, positionVert):
+        result = 1
+        if self.goalMatrix.getValues()[positionHoriz][positionVert] == value:
+            result = 0
+        return result
