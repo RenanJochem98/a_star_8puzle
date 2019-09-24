@@ -1,6 +1,8 @@
 import copy
 from State import State
 from SearchEngine import SearchEngine
+from Board import Board
+
 class BuscaHeuristica(SearchEngine):
 
     def __init__(self, scrambledMatrix, goalMatrix):
@@ -12,15 +14,22 @@ class BuscaHeuristica(SearchEngine):
     def visitNode(self, currentState, matrix):
         validMoves = self.getValidMoves(matrix)
         newLevel = currentState.getLevel() + 1
-        self.currentLevel = newLevel
         for move in validMoves:
-            self.stateId += 1
             tempMatrix = copy.deepcopy(matrix)
             node = tempMatrix.moveTo(move)
-            newState = State( currentState.getId(), tempMatrix, newLevel, move)
             h = self.calculateHeuristic(tempMatrix)
-            newState.setH(h)
-            if newState.getId() not in self.visitedStates:
+            newState = State( currentState.getId(), tempMatrix, newLevel, move, h)
+            exist = True
+            count = 0
+            for x in self.toVisitStates:
+                if x.getId() == newState.getId():
+                    exist = False
+                    if newState.getCoust() < currentState.getCoust():
+                        self.toVisitStates[count] = newState
+                    break
+                count+=1
+
+            if newState.getId() not in self.visitedStates and exist:
                 self.states[newState.getId()] = newState
                 self.toVisitStates.append(newState)
 
@@ -59,9 +68,3 @@ class BuscaHeuristica(SearchEngine):
         numberStepsVert = abs(searchedVert - positionVert)
         numberSteps = numberStepsHoriz + numberStepsVert
         return numberSteps
-
-    def foraDoLugar(self, value, positionHoriz, positionVert):
-        result = 1
-        if self.goalMatrix.getValues()[positionHoriz][positionVert] == value:
-            result = 0
-        return result
