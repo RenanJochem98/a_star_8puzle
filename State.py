@@ -1,24 +1,25 @@
 class State(object):
 
-    def __init__(self, parentId, matrix, level, direction=""):
+    def __init__(self, parentId, matrix, level, direction="Inicio", h=0):
         self.matrix = matrix
-        self.coust = 0
-        self.id = self.createId()
+        self.h = int(h)
         self.parentId = parentId
         self.direction = direction
-        self.level = level
+        self.level = int(level)
         self.childs = []
-        self.h = 0
+        self.coust = self.calculateHeuristicCoust()
+        self.id = self.createId()
 
     def createId(self):
         id = ""
         for level in self.matrix.getValues():
             for val in level:
                 id += str(val)
-        if self.coust > 0:
-            id += str(self.coust)
 
         return int(id)
+
+    def calculateHeuristicCoust(self):
+        return self.level + self.h
     def getDirection(self):
         return self.direction
     def getId(self):
@@ -41,6 +42,3 @@ class State(object):
         return self.h
     def setH(self, newH):
         self.h = newH
-    def getOrdered(self):
-        value = self.h + self.coust
-        return value
