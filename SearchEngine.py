@@ -1,6 +1,5 @@
 import time
 from operator import attrgetter
-from itertools import filterfalse
 from datetime import datetime
 from State import State
 class SearchEngine(object):
@@ -13,8 +12,6 @@ class SearchEngine(object):
         self.toVisitStates = []
         self.visitedStates = []
         self.caminho = []
-        self.stateId = 0
-        self.currentLevel = 0
 
     def getScrambledMatrix(self):
         return self.scrambledMatrix
@@ -58,107 +55,26 @@ class SearchEngine(object):
 
         return validMoves
 
-    def busca(self, state, needOrder = False):
-        inicio = datetime.now()
-        currentLevelControl = 1 #comeca com 1 para nao contar o primeiro nivel
-        previousState = None
-        print("Inicio:", end="")
-        print(inicio)
-        finded = False
-        if state == None:
-            state =State( -1, self.scrambledMatrix, 0)
-            self.states[state.getId()] = state
-            self.toVisitStates.append(state)
-        count = 0
-        currentState = state
-        while not finded:
-            print("Loop: ", end="")
-            print(count)
-            print("Visitando estado: ", end="")
-            print(currentState.getId())
-            print("Estado Pai: ", end="")
-            print(currentState.getParentId())
-            print("Nivel atual: ", end="")
-            print(currentState.getLevel())
-            currentMatrix = currentState.getMatrix()
-            # if count > 4:
-            #     break
-            if self.isGoalMatrix(currentMatrix):
-                self.goalState = currentState
-                print("Estado "+str(currentState.getId())+ " é final!")
-                finded = True
-                break
-            else:
-                self.visitNode(currentState, currentMatrix) #deve ser implementa em classe filha
-                del self.toVisitStates[0]
-                if needOrder:
-                    self.toVisitStates.sort(key=attrgetter("h"))
-                    # for i in self.visitedStates:
-                    #     if self.states[i].getVisited():
-                    #         self.states[i].setH(0)
-                currentState = self.toVisitStates[0] # novo posicao 0 era posicao 1 antes da delecao
-                if self.currentLevel != currentLevelControl: #current level pode ser alterado no visitNode()
-                    self.addCoustInVisitedStates()
-            currentLevelControl = self.currentLevel
-            currentMatrix.showNodeMatrix()
-            count += 1
-            tempoExec = datetime.now()
-            print("Tempo de Execução: ", end="")
-            print(tempoExec - inicio)
-            print("\n")
-        print("\n")
-        print("Fim da Busca")
-        print("\n")
-        if finded:
-            self.showFindedResult(inicio, datetime.now())
-        else:
-            print("Não achou")
-        print("States: ")
-        print(len(self.states))
-        print("\n")
-        print("Visited States: ")
-        print(len(self.visitedStates))
-        print("\n")
-        print("To Visit States: ")
-        print(len(self.toVisitStates))
-
-        print("\n")
-        fim = datetime.now()
-        print(fim - inicio)
-        print("Acabou")
-
     def buscaResumida(self, state, needOrder = False):
         inicio = datetime.now()
-        currentLevelControl = 1 #comeca com 1 para nao contar o primeiro nivel
-        previousState = None
         finded = False
         if state == None:
-            state =State( -1, self.scrambledMatrix, 0)
-            self.states[state.getId()] = state
-            self.toVisitStates.append(state)
+            currentState =State( -1, self.scrambledMatrix, 0)
+            self.states[currentState.getId()] = currentState
+            self.toVisitStates.append(currentState)
         count = 0
-        currentState = state
         while not finded:
             count += 1
             currentMatrix = currentState.getMatrix()
-            # if count > 2:
-            #     break
             if self.isGoalMatrix(currentMatrix):
                 self.goalState = currentState
                 finded = True
                 break
             else:
-                self.visitNode(currentState, currentMatrix) #deve ser implementa em classe filha
                 del self.toVisitStates[0]
-                if needOrder:
-                    self.toVisitStates.sort(key=attrgetter("h"))
-                    # for i in self.visitedStates:
-                    #     if self.states[i].getVisited():
-                    #         self.states[i].setH(0)
+                self.visitNode(currentState, currentMatrix) #deve ser implementa em classe filha
+                self.toVisitStates.sort(key=attrgetter("coust"))
                 currentState = self.toVisitStates[0] # novo posicao 0 era posicao 1 antes da delecao
-                if self.currentLevel != currentLevelControl: #current level pode ser alterado no visitNode()
-                    self.addCoustInVisitedStates()
-            currentLevelControl = self.currentLevel
 
         fim = datetime.now()
         if finded:
@@ -174,12 +90,12 @@ class SearchEngine(object):
         print(len(self.visitedStates))
         print("Total de estados: ", end="")
         print(len(self.states))
-        # print("Estados a visitar: ", end="")
-        # print(len(self.toVisitStates))
-        # print("Inicio:", end="")
-        # print(inicio)
-        # print("Fim:", end="")
-        # print(fim)
+        print("Estados a visitar: ", end="")
+        print(len(self.toVisitStates))
+        print("Inicio:", end="")
+        print(inicio)
+        print("Fim:", end="")
+        print(fim)
         print("Tempo de Execução:", end="")
         print(fim - inicio)
         print("Id estado Final: ", end="")
@@ -209,21 +125,3 @@ class SearchEngine(object):
                 endLine = "\n"
             print(self.states[id].getDirection(), end=endLine)
             count+=1
-
-    def addCoustInVisitedStates(self):
-        for state in self.visitedStates:
-            self.states[state].addCoust()
-
-    def showStateArrays(self):
-        print("Estados a visitar")
-        for a in self.toVisitStates:
-            print(str(a.getId())+"("+str(a.getCoust())+")"+"("+str(a.getH())+")", end=" -> ")
-        print("\n")
-        print("Estados visitados")
-        for a in self.visitedStates:
-            print(str(self.states[a].getId())+"("+str(self.states[a].getCoust())+")"+"("+str(self.states[a].getH())+")", end=" -> ")
-        print("\n")
-        print("Estados")
-        for a in self.states:
-            print(str(self.states[a].getId())+"("+str(self.states[a].getCoust())+")"+"("+str(self.states[a].getH())+")", end=" -> ")
-        print("\n")
