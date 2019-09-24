@@ -60,6 +60,7 @@ class Board(object):
         return result
 
     def moveTo(self, direction):
+        node = ""
         if direction == 'left':
             newHoriz = self.emptyPosition['Horiz']
             newVert = self.emptyPosition['Vert'] - 1
@@ -92,19 +93,20 @@ class Board(object):
     def mountScrambledMatrix(self):
         # para testes
         scrambledMatrix = []
-        scrambledMatrix.append([self.emptyValue,1,2])
-        scrambledMatrix.append([4,5,3])
-        scrambledMatrix.append([7,8,6])
-        # scrambledMatrix.append([Node(self.emptyValue,2),Node(1,0),Node(2,0)])
-        # scrambledMatrix.append([Node(4,1),Node(5,1),Node(3,0)])
-        # scrambledMatrix.append([Node(7,2),Node(8,2),Node(6,1)])
-        # scrambledMatrix.append([Node(5,1),Node(4,1),Node(2,0)])
-        # scrambledMatrix.append([Node(7,2),Node(1,0),Node(3,0)])
-        # scrambledMatrix.append([Node(self.emptyValue,2),Node(8,2),Node(6,1)])
+        ## Facil
+        # scrambledMatrix.append([self.emptyValue,1,2])
+        # scrambledMatrix.append([4,5,3])
+        # scrambledMatrix.append([7,8,6])
 
-        # scrambledMatrix.append([Node(4,1),Node(7,1),Node(5,0)])
-        # scrambledMatrix.append([Node(self.emptyValue,2),Node(2,0),Node(1,0)])
-        # scrambledMatrix.append([Node(3,2),Node(6,2),Node(8,1)])
+        ## Dificil
+        scrambledMatrix.append([4,7,5])
+        scrambledMatrix.append([self.emptyValue,2,1])
+        scrambledMatrix.append([3,6,8])
+
+        ## Menos facil
+        # scrambledMatrix.append([5,4,2])
+        # scrambledMatrix.append([7,1,3])
+        # scrambledMatrix.append([self.emptyValue,8,6])
 
         # arr = []
         # scrambledMatrix = []
