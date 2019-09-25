@@ -1,4 +1,5 @@
 import copy
+from operator import attrgetter
 from State import State
 from SearchEngine import SearchEngine
 from Board import Board
@@ -32,5 +33,6 @@ class HeuristicSearch(SearchEngine):
             if newState.getId() not in self.visitedStates and exist:
                 self.states[newState.getId()] = newState
                 self.toVisitStates.append(newState)
+                self.toVisitStates.sort(key=attrgetter("coust"))
 
         self.visitedStates.append(currentState.getId())

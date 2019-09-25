@@ -1,5 +1,5 @@
 import time
-from operator import attrgetter
+# from operator import attrgetter
 from datetime import datetime
 from State import State
 class SearchEngine(object):
@@ -12,6 +12,7 @@ class SearchEngine(object):
         self.toVisitStates = []
         self.visitedStates = []
         self.caminho = []
+        self.greaterFrontier = 0
 
     def getScrambledMatrix(self):
         return self.scrambledMatrix
@@ -73,8 +74,8 @@ class SearchEngine(object):
             else:
                 del self.toVisitStates[0]
                 self.visitNode(currentState, currentMatrix) #deve ser implementa em classe filha
-                self.toVisitStates.sort(key=attrgetter("coust"))
                 currentState = self.toVisitStates[0] # novo posicao 0 era posicao 1 antes da delecao
+                self.greaterFrontier = max(self.greaterFrontier, len(self.toVisitStates))
 
         fim = datetime.now()
         if finded:
@@ -84,6 +85,14 @@ class SearchEngine(object):
 
         print("Acabou")
 
+    def findWay(self):
+        self.caminho.append(self.goalState.getId())
+        findedId = self.goalState.getParentId()
+        while findedId != -1:
+            self.caminho.append(findedId)
+            findedId = self.states[findedId].getParentId()
+        self.caminho = self.caminho[::-1] #sei la, funciona. Nao me pergunte como
+
     def showFindedResult(self, inicio,fim):
         print("Achou")
         print("Numero de estados visitados: ", end="")
@@ -92,34 +101,31 @@ class SearchEngine(object):
         print(len(self.states))
         print("Estados a visitar: ", end="")
         print(len(self.toVisitStates))
-        print("Inicio:", end="")
-        print(inicio)
-        print("Fim:", end="")
-        print(fim)
+        # print("Inicio:", end="")
+        # print(inicio)
+        # print("Fim:", end="")
+        # print(fim)
         print("Tempo de Execução:", end="")
         print(fim - inicio)
-        print("Id estado Final: ", end="")
-        print(self.goalState.getId())
+        # print("Id estado Final: ", end="")
+        # print(self.goalState.getId())
         print("Nivel estado Final: ", end="")
         print(self.goalState.getLevel())
         print("Custo do estado final: ", end="")
         print(self.goalState.getCoust())
-        print("Custo do estado inicial: ", end="")
-        print(self.states[self.visitedStates[0]].getCoust())
-        # print("Estado Final: ")
-        # self.goalState.getMatrix().showNodeMatrix()
+        # print("Custo do estado inicial: ", end="")
+        # print(self.states[self.visitedStates[0]].getCoust())
+        print("Maior Fronteira: ", end="")
+        print(self.greaterFrontier)
 
-        self.caminho.append(self.goalState.getId())
-        findedId = self.goalState.getParentId()
-        while findedId != -1:
-            self.caminho.append(findedId)
-            findedId = self.states[findedId].getParentId()
-        reverse_way = self.caminho[::-1] #sei la, funciona. Nao me pergunte como
+        # print("Estado Final: ")
+        self.scrambledMatrix.showNodeMatrix()
+        self.findWay()
         print("Caminho : ", end="")
         print(len(self.caminho))
         print("Caminho (Da posicao vazia): ", end="")
         count = 0
-        for id in reverse_way:
+        for id in self.caminho:
             endLine = " -> "
             if count%5 == 0:
                 endLine = "\n"
