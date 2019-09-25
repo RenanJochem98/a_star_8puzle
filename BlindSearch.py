@@ -2,7 +2,7 @@
 import copy
 from State import State
 from SearchEngine import SearchEngine
-class BuscaCega(SearchEngine):
+class BlindSearch(SearchEngine):
 
     def __init__(self, scrambledMatrix, goalMatrix):
         SearchEngine.__init__(self, scrambledMatrix, goalMatrix)
