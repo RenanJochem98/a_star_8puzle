@@ -21,3 +21,18 @@ class Input(object):
                 matrix.append(temp)
                 temp = []
         return matrix
+
+    def showSearchOption(self):
+        opt = 0
+        try:
+            print("Escolha o algoritimo de busca:")
+            print("1 - Busca Cega:")
+            print("2 - Busca Heuristica(Numero de passos até a posicao correta)(Busca Boa):")
+            print("3 - Busca Heuristica(Valores fora de posição)(Não tão boa):")
+            print("4 - Trocar tabuleiro")
+            print("0 - Finalizar")
+            opt = int(input())
+        except ValueError:
+            print("Você digitou um valor que não é um número!!!")
+        print("\n")
+        return opt
