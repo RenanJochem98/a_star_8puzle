@@ -83,6 +83,7 @@ class SearchEngine(ABC):
 
         fim = datetime.now()
         if finded:
+            self.findWay()
             self.showFindedResult(inicio,fim)
         else:
             print("Não achou")
@@ -124,7 +125,6 @@ class SearchEngine(ABC):
 
         # print("Estado Final: ")
         self.scrambledMatrix.showNodeMatrix()
-        self.findWay()
         print("Caminho : ", end="")
         print(len(self.caminho))
         print("Caminho (Da posicao vazia): ", end="")
