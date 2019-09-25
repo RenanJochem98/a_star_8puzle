@@ -7,9 +7,6 @@ class BlindSearch(SearchEngine):
     def __init__(self, scrambledMatrix, goalMatrix):
         SearchEngine.__init__(self, scrambledMatrix, goalMatrix)
 
-    def buscaCega(self):
-        self.buscaResumida(None)
-
     def visitNode(self, currentState, matrix):
         validMoves = self.getValidMoves(matrix)
         newLevel = currentState.getLevel() + 1

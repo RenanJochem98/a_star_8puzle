@@ -14,9 +14,6 @@ class HeuristicSearch(SearchEngine):
     def calculateHeuristic(self, matrix=None):
         pass
 
-    def buscaHeuristica(self):
-        self.buscaResumida(None, True)
-
     def visitNode(self, currentState, matrix):
         validMoves = self.getValidMoves(matrix)
         newLevel = currentState.getLevel() + 1

@@ -16,9 +16,9 @@ newInput = Input()
 goalBoard = Board('goal')
 scrambledBoard = Board('scrambled')
 
-blindSearch = BlindSearch(scrambledBoard, goalBoard)
-outOfPosition = OutOfPositionSearch(scrambledBoard, goalBoard)
-twoSteps = TwoStepsSearch(scrambledBoard, goalBoard)
+# blindSearch = BlindSearch(scrambledBoard, goalBoard)
+# outOfPosition = OutOfPositionSearch(scrambledBoard, goalBoard)
+# twoSteps = TwoStepsSearch(scrambledBoard, goalBoard)
 
 opt = None
 while opt != 0:
@@ -34,23 +34,11 @@ while opt != 0:
         print("Você digitou um valor que não é um número!!!")
     print("\n")
     if opt == 1:
-        print("####  INICIO BUSCA CEGA ####")
-        print("\n")
-        blindSearch.buscaCega()
-        print("####   FIM BUSCA CEGA ####")
-        time.sleep(2)
+        searchEngine = BlindSearch(scrambledBoard, goalBoard)
     elif  opt == 2:
-        print("####  INICIO BUSCA HEURISTICA ####")
-        print("\n")
-        twoSteps.buscaHeuristica()
-        print("####   FIM BUSCA HEURISTICA ####")
-        time.sleep(2)
+        searchEngine = TwoStepsSearch(scrambledBoard, goalBoard)
     elif  opt == 3:
-        print("####  INICIO BUSCA HEURISTICA ####")
-        print("\n")
-        outOfPosition.buscaHeuristica()
-        print("####   FIM BUSCA HEURISTICA ####")
-        time.sleep(2)
+        searchEngine = OutOfPositionSearch(scrambledBoard, goalBoard)
     elif  opt == 4:
         matrix =  newInput.pedeMatrizInicial()
         scrambledBoard = Board('matrix', matrix)
@@ -61,6 +49,13 @@ while opt != 0:
         print("Fim")
     else:
         print("Você digitou uma opção fora dos limites!!")
+
+    if opt != 0 and opt != 4:
+        print("####  INICIO DA BUSCA HEURISTICA ####")
+        print("\n")
+        searchEngine.busca()
+        print("####   FIM BUSCA HEURISTICA ####")
+        time.sleep(2)
     print("\n")
 print("#"*30)
 print(" "*4+"FINALIZANDO ALGORITMO")

@@ -60,7 +60,7 @@ class SearchEngine(ABC):
 
         return validMoves
 
-    def buscaResumida(self, state, needOrder = False):
+    def busca(self, state=None):
         inicio = datetime.now()
         finded = False
         if state == None:
