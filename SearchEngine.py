@@ -78,13 +78,13 @@ class SearchEngine(ABC):
             else:
                 del self.frontier[0]
                 self.visitNode(currentState, currentMatrix) #deve ser implementa em classe filha
-                currentState = self.frontier[0] # novo posicao 0 era posicao 1 antes da delecao
-                self.biggerFrontier = max(self.biggerFrontier, len(self.frontier))
+            self.visitedStates.append(currentState.getId())
+            currentState = self.frontier[0] # novo posicao 0 era posicao 1 antes da delecao
+            self.biggerFrontier = max(self.biggerFrontier, len(self.frontier))
 
-        fim = datetime.now()
         if finded:
             self.findWay()
-            self.showFindedResult(inicio,fim)
+            self.showFindedResult(inicio,datetime.now())
         else:
             print("Não achou")
 

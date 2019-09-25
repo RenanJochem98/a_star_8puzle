@@ -36,5 +36,4 @@ class HeuristicSearch(SearchEngine):
                 self.states[newState.getId()] = newState
                 self.frontier.append(newState)
 
-            self.frontier.sort(key=attrgetter("coust"))
-        self.visitedStates.append(currentState.getId())
+        self.frontier.sort(key=attrgetter("coust"))

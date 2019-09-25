@@ -17,4 +17,3 @@ class BlindSearch(SearchEngine):
             if newState.getId() not in self.visitedStates:
                 self.states[newState.getId()] = newState
                 self.frontier.append(newState)
-        self.visitedStates.append(currentState.getId())
