@@ -116,6 +116,8 @@ class SearchEngine(ABC):
         print(self.goalState.getLevel())
         print("Maior Fronteira: ", end="")
         print(self.biggerFrontier)
+        print("Tamanho do caminho (contando estado inicial e estado final): ", end="")
+        print(len(self.caminho))
 
         # print("Estado Final: ")
         self.scrambledMatrix.showNodeMatrix()
