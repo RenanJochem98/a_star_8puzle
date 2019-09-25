@@ -99,14 +99,14 @@ class Board(object):
         # scrambledMatrix.append([7,8,6])
 
         ## Dificil
-        scrambledMatrix.append([4,7,5])
-        scrambledMatrix.append([self.emptyValue,2,1])
-        scrambledMatrix.append([3,6,8])
+        # scrambledMatrix.append([4,7,5])
+        # scrambledMatrix.append([self.emptyValue,2,1])
+        # scrambledMatrix.append([3,6,8])
 
         ## Menos facil
-        # scrambledMatrix.append([5,4,2])
-        # scrambledMatrix.append([7,1,3])
-        # scrambledMatrix.append([self.emptyValue,8,6])
+        scrambledMatrix.append([5,4,2])
+        scrambledMatrix.append([7,1,3])
+        scrambledMatrix.append([self.emptyValue,8,6])
 
         # arr = []
         # scrambledMatrix = []
