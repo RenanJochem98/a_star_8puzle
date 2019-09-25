@@ -6,6 +6,8 @@ A Heuristica usada é o **número de passos** até a posição correta.
 
 Comando inicial:
 > python main.py
+Comando inicial no Linux:
+> python3 main.py
 
 Explicação do Algoritmo:
 
