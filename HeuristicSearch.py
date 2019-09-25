@@ -1,4 +1,5 @@
 import copy
+from abc import abstractmethod
 from operator import attrgetter
 from State import State
 from SearchEngine import SearchEngine
@@ -8,6 +9,10 @@ class HeuristicSearch(SearchEngine):
 
     def __init__(self, scrambledMatrix, goalMatrix):
         SearchEngine.__init__(self, scrambledMatrix, goalMatrix)
+
+    @abstractmethod
+    def calculateHeuristic(self, matrix=None):
+        pass
 
     def buscaHeuristica(self):
         self.buscaResumida(None, True)

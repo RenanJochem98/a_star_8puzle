@@ -1,8 +1,9 @@
+from abc import ABC,abstractmethod
 import time
 # from operator import attrgetter
 from datetime import datetime
 from State import State
-class SearchEngine(object):
+class SearchEngine(ABC):
 
     def __init__(self, scrambledMatrix, goalMatrix):
         self.scrambledMatrix = scrambledMatrix
@@ -14,6 +15,9 @@ class SearchEngine(object):
         self.caminho = []
         self.greaterFrontier = 0
 
+    @abstractmethod
+    def visitNode(self, currentState, matrix):
+        pass
     def getScrambledMatrix(self):
         return self.scrambledMatrix
 
