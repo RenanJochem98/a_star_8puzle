@@ -27,10 +27,13 @@ while opt != 0:
     opt = newInput.showSearchOption()
 
     if opt == 1:
+        searchTitle = "BUSCA CEGA"
         searchEngine = BlindSearch(scrambledBoard, goalBoard)
     elif  opt == 2:
+        searchTitle = "BUSCA HEURISTICA BOA"
         searchEngine = TwoStepsSearch(scrambledBoard, goalBoard)
     elif  opt == 3:
+        searchTitle = "BUSCA HEURISTICA MEDIA"
         searchEngine = OutOfPositionSearch(scrambledBoard, goalBoard)
 
     elif  opt == 4:
@@ -46,10 +49,10 @@ while opt != 0:
         print("Você digitou uma opção fora dos limites!!")
 
     if opt != 0 and opt != 4:
-        print("####  INICIO DA BUSCA HEURISTICA ####")
+        print("####  INICIO DA "+searchTitle+" ####")
         print("\n")
         searchEngine.busca()
-        print("####   FIM BUSCA HEURISTICA ####")
+        print("####   FIM DA "+searchTitle+" ####")
         time.sleep(2)
     print("\n")
 
