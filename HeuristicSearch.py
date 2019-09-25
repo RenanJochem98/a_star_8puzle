@@ -24,17 +24,17 @@ class HeuristicSearch(SearchEngine):
             newState = State( currentState.getId(), tempMatrix, newLevel, move, h)
             exist = True
             count = 0
-            # for x in self.toVisitStates:
+            # for x in self.frontier:
             #     if x.getId() == newState.getId():
             #         exist = False
-            #         if newState.getCoust() < currentState.getCoust():
-            #             self.toVisitStates[count] = newState
+            #         if newState.getCoust() < x.getCoust():
+            #             self.frontier[count] = newState
             #         break
             #     count+=1
 
             if newState.getId() not in self.visitedStates and exist:
                 self.states[newState.getId()] = newState
-                self.toVisitStates.append(newState)
-                self.toVisitStates.sort(key=attrgetter("coust"))
+                self.frontier.append(newState)
 
+            self.frontier.sort(key=attrgetter("coust"))
         self.visitedStates.append(currentState.getId())

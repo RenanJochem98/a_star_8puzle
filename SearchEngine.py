@@ -10,10 +10,10 @@ class SearchEngine(ABC):
         self.goalMatrix = goalMatrix
         self.goalState = None
         self.states = {}
-        self.toVisitStates = []
+        self.frontier = []
         self.visitedStates = []
         self.caminho = []
-        self.greaterFrontier = 0
+        self.biggerFrontier = 0
 
     @abstractmethod
     def visitNode(self, currentState, matrix):
@@ -64,9 +64,9 @@ class SearchEngine(ABC):
         inicio = datetime.now()
         finded = False
         if state == None:
-            currentState =State( -1, self.scrambledMatrix, 0)
+            currentState =State( -1, self.scrambledMatrix, 0, direction="Estado Inicial")
             self.states[currentState.getId()] = currentState
-            self.toVisitStates.append(currentState)
+            self.frontier.append(currentState)
         count = 0
         while not finded:
             count += 1
@@ -76,10 +76,10 @@ class SearchEngine(ABC):
                 finded = True
                 break
             else:
-                del self.toVisitStates[0]
+                del self.frontier[0]
                 self.visitNode(currentState, currentMatrix) #deve ser implementa em classe filha
-                currentState = self.toVisitStates[0] # novo posicao 0 era posicao 1 antes da delecao
-                self.greaterFrontier = max(self.greaterFrontier, len(self.toVisitStates))
+                currentState = self.frontier[0] # novo posicao 0 era posicao 1 antes da delecao
+                self.biggerFrontier = max(self.biggerFrontier, len(self.frontier))
 
         fim = datetime.now()
         if finded:
@@ -135,3 +135,4 @@ class SearchEngine(ABC):
                 endLine = "\n"
             print(self.states[id].getDirection(), end=endLine)
             count+=1
+        print('')
